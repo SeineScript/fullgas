@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FULLGAS</title>
+        <style>
+body {
+    background: #0a0a0a;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 120px;
+}
+
+h1 {
+    font-size: 60px;
+    margin-bottom: 40px;
+}
+
+input {
+    width: 300px;
+    padding: 16px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    padding: 16px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+#timer {
+    font-size: 70px;
+    margin-top: 40px;
+}
+</style>
+    </head>
+
+    <body>
+        <h1>FULLGAS</h1>
+        <input id="mission" placeholder="Что я сделаю сегодня?">
+<button onclick="start()">ГАЗ</button>
+
+<h2 id="output"></h2>
+<h1 id="timer">60:00</h1>
+
+<script>
+let time = 60 * 60;
+let interval;
+
+function start() {
+    const mission = document.getElementById("mission").value;
+
+    if (!mission.trim()) return;
+
+    document.getElementById("output").textContent = mission;
+
+    clearInterval(interval);
+    time = 60 * 60;
+
+    interval = setInterval(() => {
+        time--;
+
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+
+        document.getElementById("timer").textContent =
+            `${minutes}:${seconds.toString().padStart(2, "0")}`;
+
+        if (time <= 0) {
+            clearInterval(interval);
+            document.getElementById("timer").textContent = "ГОТОВО.";
+        }
+    }, 1000);
+}
+</script>
+    </body>
+</html>
